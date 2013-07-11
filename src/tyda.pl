@@ -19,7 +19,7 @@ checkDependancies();
 
 my $httpRequest = "http://tyda.se/search?form=1&w=" . $ARGV[0] . "&w_lang=&form=1&action=submit&form_search=1&source_langs=en";
 
-my @interestingLines = `curl -s \"$httpRequest\" | tidy -f /dev/null | grep tyda_assoc_word`;
+my @interestingLines = `curl -s \"$httpRequest\" | tidy -utf8 -f /dev/null | grep tyda_assoc_word`;
 
 # Extract words
 my @translations = ();
