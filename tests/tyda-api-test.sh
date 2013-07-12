@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 
 # The below test/tests exists to make sure that the http requests sent to tyda.se are valid
 

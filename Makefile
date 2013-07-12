@@ -8,4 +8,4 @@ install:
 .PHONY: tests test
 test: tests
 tests:
-	cd tests && bash ./runall.sh
+	cd tests && sh ./runall.sh
