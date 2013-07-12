@@ -14,6 +14,8 @@ if [ "$ACTUAL" = "$EXPECTED" ]
     echo OK 
   else
     echo FAIL
+    echo "EXPECTED=$EXPECTED"
+    echo "ACTUAL=$ACTUAL"
     EXITCODE=1
 fi
 
