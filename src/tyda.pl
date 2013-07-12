@@ -23,14 +23,13 @@ checkDependancies();
 my $searchTerm = qq("$ARGV[0]");
 my $curlCmd    = forgeCurlCmd($searchTerm);
 
-my @interestingLines = `$curlCmd | tidy -utf8 -f /dev/null | grep tyda_assoc_word`;
+my @interestingLines = `$curlCmd | grep tyda_assoc_word`;
 
 # Extract words
 my @translations = ();
 foreach my $line (@interestingLines) {
-  if ($line =~ /.*tyda_assoc_word\">(.+?)<\/.+>/) {
-    my $translation = $1;
-    push(@translations, $translation) if $1;
+  if (my @matches = $line =~ /tyda_assoc_word\">(.+?)<\//g) {
+    push(@translations, @matches);
   }
 }
 
@@ -70,15 +69,15 @@ sub forgeCurlCmd($) {
 }
 
 sub checkDependancies() {
-  my $retval = system("which curl > /dev/null");
+  my $retval = system("which grep > /dev/null");
   if ($retval) {
-    print("Error: curl has to be installed!\n");
+    print("Error: grep has to be installed!\n");
     exit(1);
   }
 
-  $retval = system("which tidy > /dev/null");
+  $retval = system("which curl > /dev/null");
   if ($retval) {
-    print("Error: tidyhtml has to be installed!\n");
+    print("Error: curl has to be installed!\n");
     exit(1);
   }
 }
