@@ -3,13 +3,16 @@
 use strict;
 use warnings;
 
+##########################
 ### Start Main Program ###
+##########################
 
 # Forward declarations
 sub usage();
 sub checkDependancies();
+sub forgeCurlCmd($);
 
-# Length of array -1
+# Verify the number of arguments
 if ($#ARGV != 0) { 
   usage();
   exit(1);
@@ -17,9 +20,10 @@ if ($#ARGV != 0) {
 
 checkDependancies();
 
-my $httpRequest = "http://tyda.se/search?form=1&w=" . $ARGV[0] . "&w_lang=&form=1&action=submit&form_search=1&source_langs=en";
+my $searchTerm = qq("$ARGV[0]");
+my $curlCmd    = forgeCurlCmd($searchTerm);
 
-my @interestingLines = `curl -s \"$httpRequest\" | tidy -utf8 -f /dev/null | grep tyda_assoc_word`;
+my @interestingLines = `$curlCmd | tidy -utf8 -f /dev/null | grep tyda_assoc_word`;
 
 # Extract words
 my @translations = ();
@@ -38,14 +42,32 @@ foreach my $translation (@translations) {
   }
 }
 
-# Print all the translations
+# Print all translations
 foreach my $translation (@uniqeTranslations) {
   print $translation . "\n";
 }
 
 exit(0);
 
+########################
 ### End Main Program ###
+########################
+
+# Put toghether the curl command
+sub forgeCurlCmd($) {
+  my $searchTerm = shift;
+
+  my $curlCmd;
+  $curlCmd = "curl -G -s"; 
+  $curlCmd = $curlCmd . " --data-urlencode w=$searchTerm";
+  $curlCmd = $curlCmd . " -d form=1";
+  $curlCmd = $curlCmd . " -d w_lang=";
+  $curlCmd = $curlCmd . " -d action=submit";
+  $curlCmd = $curlCmd . " -d form_search=1";
+  $curlCmd = $curlCmd . " -d source_langs=en";
+  $curlCmd = $curlCmd . " http://tyda.se/search";
+  return $curlCmd;
+}
 
 sub checkDependancies() {
   my $retval = system("which curl > /dev/null");
@@ -62,5 +84,5 @@ sub checkDependancies() {
 }
 
 sub usage() {
-  print "Usage: tyda word-to-be-translated-to-swedish-from-english\n";
+  print "Usage: tyda word\n";
 }
