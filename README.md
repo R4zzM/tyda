@@ -7,7 +7,9 @@ This is a first prototype. Only swedish to english translation is supported.
 This script requires curl and tidy html to be installed and accessible via the PATH variable in the shell.
 ##### Installation
 `git clone https://github.com/R4zzM/tyda.git`
+
 `cd tyda`
+
 `sudo make install`
 ##### Usage
 On the commandline:
