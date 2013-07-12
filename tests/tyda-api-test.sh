@@ -9,7 +9,7 @@ EXITCODE=0
 ACTUAL=`../src/tyda.pl Sweden | tr -d '\n'`
 EXPECTED="Sverige"
 echo -n "Sweden => Sverige: "
-if [ $ACTUAL = $EXPECTED ]
+if [ "$ACTUAL" = "$EXPECTED" ]
   then  
     echo OK 
   else
