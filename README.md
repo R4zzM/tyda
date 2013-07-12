@@ -7,18 +7,21 @@ This is a first prototype. Only swedish to english translation is supported.
 This script requires curl and tidy html to be installed and accessible via the PATH variable in the shell.
 ##### Installation
 Clone the repository:
+
 `git clone https://github.com/R4zzM/tyda.git`
 
 Move into the folder:
+
 `cd tyda`
 
 Run make install target as root:
+
 `sudo make install`
 ##### Usage
 On the commandline:
 `tyda <word-to-translate>`
 ##### Troubleshooting
-To run tests do:
+There are some tests that can be run to make sure tyda is working as it should:
 `make tests`
 
 Be aware that some of the tests will test that the tyda API has not changed and will thus require a working internet connection.<br>
