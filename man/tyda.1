@@ -1,0 +1,16 @@
+.TH tyda 1 "Summer 2013" "Version 1" "User Commands"
+.SH NAME
+tyda \- Access tyda.se from the commandline.
+.SH SYNOPSIS
+tyda <word>
+.SH DESCRIPTION
+This program provides translations from tyda.se on the commandline. Currently only translations from English to Swedish are supported.
+.SH EXAMPLES
+.TP
+Translate the word "Sweden" to swedish:
+.B tyda Sweden
+.PP
+.SH EXITSTATUS
+If all goes well tyda will return 0 to the prompt. If something unexpected happends during runtime, a 1 will be returned. Note that a word where no translations exist is not considered an error.
+.SH AUTHOR
+Rasmus Mattsson <r@zzm.se>
